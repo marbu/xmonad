@@ -1,33 +1,80 @@
--- xmonad.hs of marbu
 --
--- inpiration:
--- http://www.haskell.org/haskellwiki/Xmonad/Using_xmonad_in_KDE
--- http://haskell.org/haskellwiki/Xmonad/Config_archive/John_Goerzen's_Configuration
+-- ~/.xmonad/xmonad.hs
 --
 
+-- based on
+-- default desktop configuration for Fedora
+-- http://www.haskell.org/haskellwiki/Xmonad/Using_xmonad_in_KDE
+-- http://haskell.org/haskellwiki/Xmonad/Config_archive/John_Goerzen's_Configuration
+
+import System.Posix.Env (getEnv)
+import Data.Maybe (maybe)
+
 import XMonad
+
+import XMonad.Config.Desktop
+import XMonad.Config.Gnome
 import XMonad.Config.Kde
-import qualified XMonad.StackSet as W -- to shift and float windows
-import XMonad.Util.EZConfig(additionalKeys)
+import XMonad.Config.Xfce
+
 import XMonad.Layout.NoBorders
 import XMonad.Layout.IM
-import XMonad.Hooks.DynamicLog
+import XMonad.Layout.ResizableTile
+
 import XMonad.Hooks.ManageDocks
- 
-main = xmonad $ kde4Config
- { modMask = mod4Mask -- use the Windows button as mod
- , manageHook = manageHook kdeConfig <+> myManageHook
- , layoutHook = smartBorders $ avoidStruts $ layoutHook kde4Config
- , borderWidth = 2
- } -- `additionalKeys` [ ((mod1Mask, xK_d), spawn "/home/martin/local/bin/qstardict-show-hide.sh") ]
- where
-   myManageHook = composeAll . concat $
-     [ [ className   =? c --> doFloat           | c <- myFloats]
-     , [ title       =? t --> doFloat           | t <- myOtherFloats]
-     -- , [ className   =? c --> doF (W.shift "2") | c <- webApps]
-     -- , [ className   =? c --> doF (W.shift "3") | c <- ircApps]
-     ]
-   myFloats      = ["MPlayer", "Gimp"]
-   myOtherFloats = ["alsamixer"]
-   webApps       = ["Firefox-bin", "Opera"] -- open on desktop 2
-   ircApps       = ["Ksirc"]                -- open on desktop 3
+import XMonad.Util.EZConfig (additionalKeys)
+import qualified XMonad.StackSet as W
+
+--
+-- basic configuration
+--
+
+myModMask     = mod4Mask -- use the Windows key as mod
+myBorderWidth = 2        -- set window border size
+
+--
+-- key bindings
+--
+
+myKeys        = []
+-- ((mod1Mask, xK_d), spawn "/home/martin/local/bin/qstardict-show-hide.sh")
+
+--
+-- hooks for newly created windows
+--
+
+myManageHook :: ManageHook
+myManageHook = composeAll . concat $
+  [ [ className   =? c --> doFloat           | c <- myFloats]
+  , [ className   =? c --> doF (W.shift "9") | c <- mailApps]
+  ]
+  where
+    myFloats      = ["MPlayer", "Gimp"]
+    mailApps      = ["Thunderbird"]
+
+--
+-- desktop :: DESKTOP_SESSION -> desktop_configuration
+--
+
+desktop "gnome"         = gnomeConfig
+desktop "xmonad-gnome"  = gnomeConfig
+desktop "kde"           = kde4Config
+desktop "kde-plasma"    = kde4Config
+desktop "xfce"          = xfceConfig
+desktop _               = desktopConfig
+
+defDesktopConfig = maybe desktopConfig desktop
+
+--
+-- main function
+--
+
+main :: IO ()
+main = do
+  session <- getEnv "DESKTOP_SESSION"
+  xmonad (defDesktopConfig session)
+    { modMask     = myModMask
+    , borderWidth = myBorderWidth
+    , layoutHook  = smartBorders $ avoidStruts $ layoutHook (defDesktopConfig session)
+    , manageHook  = manageDocks <+> myManageHook <+> manageHook (defDesktopConfig session)
+    } -- `additionalKeys` myKeys
