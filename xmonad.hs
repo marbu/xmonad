@@ -5,7 +5,7 @@
 -- based on
 -- default desktop configuration for Fedora
 -- http://www.haskell.org/haskellwiki/Xmonad/Using_xmonad_in_KDE
--- http://haskell.org/haskellwiki/Xmonad/Config_archive/John_Goerzen's_Configuration
+-- http://www.haskell.org/haskellwiki/Xmonad/Config_archive/John_Goerzen's_Configuration
 
 import System.Posix.Env (getEnv)
 import Data.Maybe (maybe)
