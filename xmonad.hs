@@ -41,6 +41,7 @@ myKeys        = []
 
 --
 -- hooks for newly created windows
+-- note: run 'xprop WM_CLASS' to get className
 --
 
 myManageHook :: ManageHook
@@ -49,7 +50,7 @@ myManageHook = composeAll . concat $
   , [ className   =? c --> doF (W.shift "9") | c <- mailApps]
   ]
   where
-    myFloats      = ["MPlayer", "Gimp"]
+    myFloats      = ["MPlayer", "Gimp", "Plasma-desktop", "Klipper"]
     mailApps      = ["Thunderbird"]
 
 --
