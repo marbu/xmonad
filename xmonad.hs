@@ -19,6 +19,9 @@ import XMonad.Config.Xfce
 
 import XMonad.Layout.NoBorders
 import XMonad.Layout.IM
+import XMonad.Layout.SimpleFloat
+import XMonad.Layout.Grid
+import XMonad.Layout.Tabbed
 import XMonad.Layout.ResizableTile
 
 import XMonad.Hooks.ManageDocks
@@ -36,8 +39,11 @@ myBorderWidth = 2        -- set window border size
 -- key bindings
 --
 
-myKeys        = []
--- ((mod1Mask, xK_d), spawn "/home/martin/local/bin/qstardict-show-hide.sh")
+myKeys = [
+   ((myModMask, xK_a), sendMessage MirrorShrink) -- for  ResizableTall
+ , ((myModMask, xK_z), sendMessage MirrorExpand) -- for  ResizableTall
+ --((myModMask, xK_d), spawn "/home/martin/bin/qstardict-show-hide.sh")
+ ]
 
 --
 -- hooks for newly created windows
@@ -54,6 +60,21 @@ myManageHook = composeAll . concat $
     mailApps      = ["Thunderbird"]
 
 --
+-- layout hooks
+--
+
+myLayoutHook = tiled ||| Mirror tiled ||| Full ||| Grid
+  where
+    -- default tiling algorithm partitions the screen into two panes
+    tiled   =  ResizableTall nmaster delta ratio []
+    -- The default number of windows in the master pane
+    nmaster = 1
+    -- Default proportion of screen occupied by master pane
+    ratio   = 1/2
+    -- Percent of screen to increment by when resizing panes
+    delta   = 3/100
+
+--
 -- desktop :: DESKTOP_SESSION -> desktop_configuration
 --
 
@@ -67,15 +88,15 @@ desktop _               = desktopConfig
 defDesktopConfig = maybe desktopConfig desktop
 
 --
--- main function
+-- main function (no configuration stored there)
 --
 
 main :: IO ()
 main = do
   session <- getEnv "DESKTOP_SESSION"
-  xmonad (defDesktopConfig session)
+  xmonad $ (defDesktopConfig session)
     { modMask     = myModMask
     , borderWidth = myBorderWidth
-    , layoutHook  = smartBorders $ avoidStruts $ layoutHook (defDesktopConfig session)
+    , layoutHook  = smartBorders $ avoidStruts $ myLayoutHook
     , manageHook  = manageDocks <+> myManageHook <+> manageHook (defDesktopConfig session)
-    } -- `additionalKeys` myKeys
+    } `additionalKeys` myKeys
