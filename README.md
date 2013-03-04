@@ -13,8 +13,8 @@ examples:
 ~~~
 $ git clone https://github.com/marbu/xmonad.git ~/.xmonad
 $ mkdir ~/.kde/env
-$ echo 'KDEWM=/usr/bin/xmonad' > ~/.kde/set_window_manager.sh
-$ chmod u+x ~/.kde/set_window_manager.sh
+$ echo 'KDEWM=/usr/bin/xmonad' > ~/.kde/env/set_window_manager.sh
+$ chmod u+x ~/.kde/env/set_window_manager.sh
 ~~~
 
 Note: runner (in KDE triggered via alt-f2) is binded to meta-p as expected,
