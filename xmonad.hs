@@ -24,6 +24,8 @@ import XMonad.Layout.Grid
 import XMonad.Layout.Tabbed
 import XMonad.Layout.ResizableTile
 
+import XMonad.Actions.PhysicalScreens
+
 import XMonad.Hooks.ManageDocks
 import XMonad.Util.EZConfig (additionalKeys)
 import qualified XMonad.StackSet as W
@@ -42,6 +44,8 @@ myBorderWidth = 2        -- set window border size
 myKeys = [
    ((myModMask, xK_a), sendMessage MirrorShrink) -- for  ResizableTall
  , ((myModMask, xK_z), sendMessage MirrorExpand) -- for  ResizableTall
+ , ((myModMask, xK_w), viewScreen 0)
+ , ((myModMask, xK_e), viewScreen 1)
  --((myModMask, xK_d), spawn "/home/martin/bin/qstardict-show-hide.sh")
  ]
 
