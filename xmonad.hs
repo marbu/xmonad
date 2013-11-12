@@ -8,6 +8,8 @@
 -- http://www.haskell.org/haskellwiki/Xmonad/Config_archive/John_Goerzen's_Configuration
 
 import System.Posix.Env (getEnv)
+import System.IO
+import System.Directory
 import Data.Maybe (maybe)
 
 import XMonad
@@ -27,8 +29,11 @@ import XMonad.Layout.ResizableTile
 import XMonad.Actions.PhysicalScreens
 
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.DynamicLog
+
 import XMonad.Util.EZConfig (additionalKeys)
 import XMonad.Util.Scratchpad
+import XMonad.Util.Run (spawnPipe)
 
 import qualified XMonad.StackSet as W
 
@@ -99,6 +104,15 @@ coreLayoutHook = tiled ||| Mirror tiled ||| Full ||| Grid
     delta   = 3/100
 
 --
+-- log hook (for xmobar)
+--
+
+myLogHook xmproc = dynamicLogWithPP xmobarPP
+  { ppOutput = hPutStrLn xmproc
+  , ppTitle  = xmobarColor "green" "" . shorten 50
+  }
+
+--
 -- desktop :: DESKTOP_SESSION -> desktop_configuration
 --
 
@@ -109,8 +123,6 @@ desktop "kde-plasma"    = kde4Config
 desktop "xfce"          = xfceConfig
 desktop _               = desktopConfig
 
-defDesktopConfig = maybe desktopConfig desktop
-
 --
 -- main function (no configuration stored there)
 --
@@ -118,9 +130,16 @@ defDesktopConfig = maybe desktopConfig desktop
 main :: IO ()
 main = do
   session <- getEnv "DESKTOP_SESSION"
-  xmonad $ (defDesktopConfig session)
-    { modMask     = myModMask
-    , borderWidth = myBorderWidth
-    , layoutHook  = myLayoutHook
-    , manageHook  = myManageHook <+> manageHook (defDesktopConfig session)
-    } `additionalKeys` myKeys
+  let defDesktopConfig = maybe desktopConfig desktop session
+      myDesktopConfig = defDesktopConfig
+        { modMask     = myModMask
+        , borderWidth = myBorderWidth
+        , layoutHook  = myLayoutHook
+        , manageHook  = myManageHook <+> manageHook defDesktopConfig
+        } `additionalKeys` myKeys
+  -- when running standalone (no KDE), try to spawn xmobar (if installed)
+  xmobarInstalled <- doesFileExist "/usr/bin/xmobar"
+  if session == Just "xmonad" && xmobarInstalled
+    then do mproc <- spawnPipe "/usr/bin/xmobar ~/.xmonad/xmobar.config"
+            xmonad $ myDesktopConfig { logHook = myLogHook mproc }
+    else do xmonad myDesktopConfig
