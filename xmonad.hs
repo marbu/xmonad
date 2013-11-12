@@ -28,6 +28,8 @@ import XMonad.Actions.PhysicalScreens
 
 import XMonad.Hooks.ManageDocks
 import XMonad.Util.EZConfig (additionalKeys)
+import XMonad.Util.Scratchpad
+
 import qualified XMonad.StackSet as W
 
 --
@@ -47,8 +49,11 @@ myKeys = [
  , ((myModMask, xK_z), sendMessage MirrorExpand) -- for  ResizableTall
  , ((myModMask, xK_w), viewScreen 0)
  , ((myModMask, xK_e), viewScreen 1)
+ , ((myModMask, xK_o), scratchPad)
  --((myModMask, xK_d), spawn "/home/martin/bin/qstardict-show-hide.sh")
  ]
+ where
+   scratchPad = scratchpadSpawnActionTerminal myTerminal
 
 --
 -- hooks for newly created windows
@@ -56,7 +61,7 @@ myKeys = [
 --
 
 myManageHook :: ManageHook
-myManageHook = manageDocks <+> coreManageHook
+myManageHook = manageDocks <+> manageScratchPad <+> coreManageHook
 
 coreManageHook :: ManageHook
 coreManageHook = composeAll . concat $
@@ -66,6 +71,15 @@ coreManageHook = composeAll . concat $
   where
     myFloats      = ["MPlayer", "Gimp", "Plasma-desktop", "Klipper"]
     mailApps      = ["Thunderbird"]
+
+-- yakuake style hook
+manageScratchPad :: ManageHook
+manageScratchPad = scratchpadManageHook (W.RationalRect l t w h)
+  where
+    h = 0.4     -- terminal height, 40%
+    w = 1       -- terminal width, 100%
+    t = 1 - h   -- distance from top edge, 90%
+    l = 1 - w   -- distance from left edge, 0%
 
 --
 -- layout hooks

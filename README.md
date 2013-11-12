@@ -7,6 +7,7 @@ examples:
 
  * [Using xmonad in KDE](http://www.haskell.org/haskellwiki/Xmonad/Using_xmonad_in_KDE)
  * [John Goerzen's Configuration](http://www.haskell.org/haskellwiki/Xmonad/Config_archive/John_Goerzen's_Configuration)
+ * [yakuake-like scratchpad](http://pbrisbin.com/posts/xmonad_scratchpad/)
 
 ## Quick setup
 
