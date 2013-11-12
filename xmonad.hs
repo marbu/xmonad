@@ -36,6 +36,7 @@ import qualified XMonad.StackSet as W
 
 myModMask     = mod4Mask -- use the Windows key as mod
 myBorderWidth = 2        -- set window border size
+myTerminal    = "urxvt"  -- preferred terminal emulator
 
 --
 -- key bindings
