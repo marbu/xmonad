@@ -56,7 +56,10 @@ myKeys = [
 --
 
 myManageHook :: ManageHook
-myManageHook = composeAll . concat $
+myManageHook = manageDocks <+> coreManageHook
+
+coreManageHook :: ManageHook
+coreManageHook = composeAll . concat $
   [ [ className   =? c --> doFloat           | c <- myFloats]
   , [ className   =? c --> doF (W.shift "9") | c <- mailApps]
   ]
@@ -68,7 +71,9 @@ myManageHook = composeAll . concat $
 -- layout hooks
 --
 
-myLayoutHook = tiled ||| Mirror tiled ||| Full ||| Grid
+myLayoutHook = smartBorders $ avoidStruts $ coreLayoutHook
+
+coreLayoutHook = tiled ||| Mirror tiled ||| Full ||| Grid
   where
     -- default tiling algorithm partitions the screen into two panes
     tiled   =  ResizableTall nmaster delta ratio []
@@ -102,6 +107,6 @@ main = do
   xmonad $ (defDesktopConfig session)
     { modMask     = myModMask
     , borderWidth = myBorderWidth
-    , layoutHook  = smartBorders $ avoidStruts $ myLayoutHook
-    , manageHook  = manageDocks <+> myManageHook <+> manageHook (defDesktopConfig session)
+    , layoutHook  = myLayoutHook
+    , manageHook  = myManageHook <+> manageHook (defDesktopConfig session)
     } `additionalKeys` myKeys
