@@ -2,11 +2,6 @@
 -- ~/.xmonad/xmonad.hs
 --
 
--- based on
--- default desktop configuration for Fedora
--- http://www.haskell.org/haskellwiki/Xmonad/Using_xmonad_in_KDE
--- http://www.haskell.org/haskellwiki/Xmonad/Config_archive/John_Goerzen's_Configuration
-
 import System.Posix.Env (getEnv)
 import System.IO
 import System.Directory
