@@ -74,6 +74,7 @@ coreManageHook = composeAll . concat $
      , "Gimp"
      , "Plasma-desktop"
      , "Klipper"
+     , "Keepassx"
      ]
     mailApps      = ["Thunderbird"]
 
