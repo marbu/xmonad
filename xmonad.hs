@@ -69,7 +69,12 @@ coreManageHook = composeAll . concat $
   , [ className   =? c --> doF (W.shift "9") | c <- mailApps]
   ]
   where
-    myFloats      = ["MPlayer", "Gimp", "Plasma-desktop", "Klipper"]
+    myFloats      = [
+       "MPlayer"
+     , "Gimp"
+     , "Plasma-desktop"
+     , "Klipper"
+     ]
     mailApps      = ["Thunderbird"]
 
 -- yakuake style hook
