@@ -25,6 +25,7 @@ import XMonad.Actions.PhysicalScreens
 
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.SetWMName
 
 import XMonad.Util.EZConfig (additionalKeys)
 import XMonad.Util.Scratchpad
@@ -88,6 +89,12 @@ manageScratchPad = scratchpadManageHook (W.RationalRect l t w h)
     l = 1 - w   -- distance from left edge, 0%
 
 --
+-- startup hooks
+--
+
+myStartupHook = setWMName "LG3D"
+
+--
 -- layout hooks
 --
 
@@ -136,6 +143,7 @@ main = do
       myDesktopConfig = defDesktopConfig
         { modMask     = myModMask
         , borderWidth = myBorderWidth
+        , startupHook = myStartupHook
         , layoutHook  = myLayoutHook
         , manageHook  = myManageHook <+> manageHook defDesktopConfig
         } `additionalKeys` myKeys
