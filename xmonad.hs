@@ -121,6 +121,7 @@ desktop "gnome"         = gnomeConfig
 desktop "xmonad-gnome"  = gnomeConfig
 desktop "kde"           = kde4Config
 desktop "kde-plasma"    = kde4Config
+desktop "plasma"        = kde4Config
 desktop "xfce"          = xfceConfig
 desktop _               = desktopConfig
 
