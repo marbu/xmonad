@@ -74,6 +74,7 @@ coreManageHook = composeAll . concat $
        "MPlayer"
      , "Gimp"
      , "Plasma-desktop"
+     , "plasmashell"
      , "Klipper"
      , "Keepassx"
      ]
