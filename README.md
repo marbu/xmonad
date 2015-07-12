@@ -35,7 +35,7 @@ but you should configure it to use floating mode (otherwise the input line
 loses focus and you are not able to type anything in it). This is a reported
 [bug of xmonad-contrib](http://code.google.com/p/xmonad/issues/detail?id=430).
 
-### KDE 5 Plasma Worksapce
+### KDE 5 Plasma Workspace
 
 Compared to KDE 4, the only difference is the location of configuration files:
 
