@@ -46,3 +46,10 @@ $ echo 'KDEWM=/usr/bin/xmonad' > ~/.config/plasma-workspace/env/set_window_manag
 
 Note: Plasma now uses meta key in some default keybindings (eg. meta-tab is
 catched by Plasma and not XMonad) which needs to be reconfigured.
+
+Unfortunatelly, there are few new issues compared to KDE 4 xmonad integration:
+
+ * [KDE Bug 351141](https://bugs.kde.org/show_bug.cgi?id=351141)
+ * [KDE Bug 351706](https://bugs.kde.org/show_bug.cgi?id=351706)
+ * multiple screens messess with window placement (requires better description
+   as this one may be actually a feature though)
