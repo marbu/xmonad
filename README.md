@@ -5,7 +5,7 @@ configuration with KDE integration which would also work standalone.
 
 ## Inspiration
 
-Primary source of information for XMonad KDE integration:
+Primary source of information for Xmonad KDE integration:
 
  * [Using xmonad in KDE](http://www.haskell.org/haskellwiki/Xmonad/Using_xmonad_in_KDE)
 
@@ -13,11 +13,11 @@ Moreover this configuration is based on the following examples:
 
  * [John Goerzen's Configuration](http://www.haskell.org/haskellwiki/Xmonad/Config_archive/John_Goerzen's_Configuration)
  * Fedora default configuraton (package `xmonad-config`, see [xmonad builds](http://koji.fedoraproject.org/koji/packageinfo?packageID=8370))
- * yakuake-like [XMonad Scratchpad](http://pbrisbin.com/posts/xmonad_scratchpad/)
+ * yakuake-like [Xmonad Scratchpad](http://pbrisbin.com/posts/xmonad_scratchpad/)
 
 ## Quick setup
 
-Install XMonad and clone this repository into `~/.xmonad` directory:
+Install Xmonad and clone this repository into `~/.xmonad` directory:
 
 ~~~
 $ git clone https://github.com/marbu/xmonad.git ~/.xmonad
@@ -45,11 +45,14 @@ $ echo 'KDEWM=/usr/bin/xmonad' > ~/.config/plasma-workspace/env/set_window_manag
 ~~~
 
 Note: Plasma now uses meta key in some default keybindings (eg. meta-tab is
-catched by Plasma and not XMonad) which needs to be reconfigured.
+catched by Plasma and not Xmonad) which needs to be reconfigured.
 
-Unfortunatelly, there are few new issues compared to KDE 4 xmonad integration:
+Unfortunatelly, there are few new issues compared to KDE 4 with xmonad:
 
  * [KDE Bug 351141](https://bugs.kde.org/show_bug.cgi?id=351141)
  * [KDE Bug 351706](https://bugs.kde.org/show_bug.cgi?id=351706)
- * multiple screens messess with window placement (requires better description
-   as this one may be actually a feature though)
+ * multiple screens mess with window placement (most of windows from multiple
+   virtual desktops end up on single virt. desktop when screen is connected
+   or disconnected) and this *may be* a consequence of new KDE 5 feature which
+   maintains separate desktop configuration when new screen is attached
+   (further investigation needed)
