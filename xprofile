@@ -1,0 +1,29 @@
+#!/bin/bash
+
+#
+# xprofile file for xmonad session
+#
+
+# set wallpaper
+wallpaper=~/data/wallpapers/dark-fedora-wallpaper.jpg
+xloadimage -onroot -fullscreen -background black -center "${wallpaper}"
+
+# set keyboard layout
+setxkbmap us -variant cz_sk_de
+
+# force reload of custom X configuration
+xrdb -merge ~/.Xresources
+
+# make ctr-atl-backspace work again
+# setxkbmap -option terminate:ctrl_alt_bksp
+
+# remap some keys
+# xmodmap ~/.xmodmaprc
+
+# run screensaver
+# xscreensaver -no-splash &
+
+# set tray icon
+# trayer --edge top --align right --SetDockType true \
+#        --SetPartialStrut true  --expand true --width 10 \
+#        --transparent true --tint 0x000000 --height 12 &
