@@ -56,6 +56,11 @@ myKeys = [
  where
    scratchPad = scratchpadSpawnActionTerminal myTerminal
 
+-- key bindings used only in stand alone mode (without KDE)
+myStandAloneKeys = [
+   ((myModMask, xK_l), spawn "xscreensaver-command -lock")
+ ]
+
 --
 -- hooks for newly created windows
 -- note: run 'xprop WM_CLASS' to get className
@@ -152,5 +157,7 @@ main = do
   xmobarInstalled <- doesFileExist "/usr/bin/xmobar"
   if session == Just "xmonad" && xmobarInstalled
     then do mproc <- spawnPipe "/usr/bin/xmobar ~/.xmonad/xmobar.hs"
-            xmonad $ myDesktopConfig { logHook = myLogHook mproc }
+            xmonad $ myDesktopConfig
+              { logHook = myLogHook mproc
+              } `additionalKeys` myStandAloneKeys
     else do xmonad myDesktopConfig
