@@ -5,7 +5,6 @@
 import System.Posix.Env (getEnv)
 import System.IO
 import System.Directory
-import System.Process
 import Data.Maybe (maybe)
 
 import XMonad
@@ -152,7 +151,6 @@ main = do
   -- when running standalone (no KDE), try to spawn xmobar (if installed)
   xmobarInstalled <- doesFileExist "/usr/bin/xmobar"
   if session == Just "xmonad" && xmobarInstalled
-    then do runCommand "/bin/bash ~/.xmonad/xprofile"
-            mproc <- spawnPipe "/usr/bin/xmobar ~/.xmonad/xmobar.hs"
+    then do mproc <- spawnPipe "/usr/bin/xmobar ~/.xmonad/xmobar.hs"
             xmonad $ myDesktopConfig { logHook = myLogHook mproc }
     else do xmonad myDesktopConfig
