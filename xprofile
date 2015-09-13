@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# xprofile file for xmonad session
+# example of ~/.xprofile file for xmonad session
 #
 
 # set wallpaper
@@ -21,9 +21,4 @@ xrdb -merge ~/.Xresources
 # xmodmap ~/.xmodmaprc
 
 # run screensaver
-# xscreensaver -no-splash &
-
-# set tray icon
-# trayer --edge top --align right --SetDockType true \
-#        --SetPartialStrut true  --expand true --width 10 \
-#        --transparent true --tint 0x000000 --height 12 &
+xscreensaver -no-splash &
