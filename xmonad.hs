@@ -158,6 +158,7 @@ main = do
   if session == Just "xmonad" && xmobarInstalled
     then do mproc <- spawnPipe "/usr/bin/xmobar ~/.xmonad/xmobar.hs"
             xmonad $ myDesktopConfig
-              { logHook = myLogHook mproc
+              { logHook  = myLogHook mproc
+              , terminal = myTerminal
               } `additionalKeys` myStandAloneKeys
     else do xmonad myDesktopConfig
