@@ -6,6 +6,7 @@ import System.Posix.Env (getEnv)
 import System.IO
 import System.Directory
 import Data.Maybe (maybe)
+import Graphics.X11.ExtraTypes.XF86
 
 import XMonad
 
@@ -27,7 +28,7 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.SetWMName
 
-import XMonad.Util.EZConfig (additionalKeys)
+import XMonad.Util.EZConfig
 import XMonad.Util.Scratchpad
 import XMonad.Util.Run (spawnPipe)
 
@@ -59,6 +60,11 @@ myKeys = [
 -- key bindings used only in stand alone mode (without KDE)
 myStandAloneKeys = [
    ((myModMask, xK_x),             spawn "xscreensaver-command -lock")
+ , ((0, xF86XK_MonBrightnessUp),   spawn "xbacklight -inc 10")
+ , ((0, xF86XK_MonBrightnessDown), spawn "xbacklight -dec 10")
+ , ((0, xF86XK_AudioRaiseVolume),  spawn "amixer -D pulse sset Master 10%+")
+ , ((0, xF86XK_AudioLowerVolume),  spawn "amixer -D pulse sset Master 10%-")
+ , ((0, xF86XK_AudioMute),         spawn "amixer -D pulse sset Master toggle")
  ]
 
 --
