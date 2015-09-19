@@ -58,7 +58,7 @@ myKeys = [
 
 -- key bindings used only in stand alone mode (without KDE)
 myStandAloneKeys = [
-   ((myModMask, xK_l), spawn "xscreensaver-command -lock")
+   ((myModMask, xK_x),             spawn "xscreensaver-command -lock")
  ]
 
 --
