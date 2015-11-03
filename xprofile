@@ -22,3 +22,8 @@ xrdb -merge ~/.Xresources
 
 # run screensaver
 xscreensaver -no-splash &
+
+# run taffybar (if installed)
+if [[ -x /usr/bin/taffybar ]]; then
+  taffybar &
+fi

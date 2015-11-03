@@ -27,12 +27,21 @@ import XMonad.Actions.PhysicalScreens
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.SetWMName
+import XMonad.Hooks.EwmhDesktops (ewmh)
 
 import XMonad.Util.EZConfig
 import XMonad.Util.Scratchpad
 import XMonad.Util.Run (spawnPipe)
 
 import qualified XMonad.StackSet as W
+
+--
+-- taffybar support
+--
+
+-- to disable taffybar, comment out import and set variable to False
+import System.Taffybar.Hooks.PagerHints (pagerHints)
+useTaffybar = True
 
 --
 -- basic configuration
@@ -150,7 +159,10 @@ desktop _               = desktopConfig
 
 main :: IO ()
 main = do
+  -- check enviroment
   session <- getEnv "DESKTOP_SESSION"
+  xmobarInstalled <- doesFileExist "/usr/bin/xmobar"
+  -- predefine base of desktop configuration
   let defDesktopConfig = maybe desktopConfig desktop session
       myDesktopConfig = defDesktopConfig
         { modMask     = myModMask
@@ -159,12 +171,18 @@ main = do
         , layoutHook  = myLayoutHook
         , manageHook  = myManageHook <+> manageHook defDesktopConfig
         } `additionalKeys` myKeys
-  -- when running standalone (no KDE), try to spawn xmobar (if installed)
-  xmobarInstalled <- doesFileExist "/usr/bin/xmobar"
-  if session == Just "xmonad" && xmobarInstalled
-    then do mproc <- spawnPipe "/usr/bin/xmobar ~/.xmonad/xmobar.hs"
-            xmonad $ myDesktopConfig
-              { logHook  = myLogHook mproc
-              , terminal = myTerminal
-              } `additionalKeys` myStandAloneKeys
-    else do xmonad myDesktopConfig
+  -- check if xmonad runs in standalone mode or within KDE session
+  -- when running standalone, try to use taffybar or xmobar so that xmonad
+  -- would still run alone (without kde, xmobar or taffybar) just fine
+  -- TODO: refactor this :)
+  if session == Just "xmonad" && useTaffybar
+     then do xmonad $ ewmh $ pagerHints $ myDesktopConfig
+                       { terminal = myTerminal
+                       } `additionalKeys` myStandAloneKeys
+     else if session == Just "xmonad" && xmobarInstalled
+             then do mproc <- spawnPipe "/usr/bin/xmobar ~/.xmonad/xmobar.hs"
+                     xmonad $ myDesktopConfig
+                       { logHook  = myLogHook mproc
+                       , terminal = myTerminal
+                       } `additionalKeys` myStandAloneKeys
+             else do xmonad myDesktopConfig
