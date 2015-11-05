@@ -20,6 +20,11 @@ cpuCallback = do
   (userLoad, systemLoad, totalLoad) <- cpuLoad
   return [totalLoad, systemLoad]
 
+myPagerConfig :: PagerConfig
+myPagerConfig = defaultPagerConfig
+  { emptyWorkspace = (\xs -> "")
+  }
+
 main = do
   let memCfg = defaultGraphConfig { graphDataColors = [(1, 0, 0, 1)]
                                   , graphLabel = Just "mem"
@@ -30,7 +35,7 @@ main = do
                                   , graphLabel = Just "cpu"
                                   }
   let clock = textClockNew Nothing "<span fgcolor='orange'>%a %b %_d %H:%M</span>" 1
-      pager = taffyPagerNew defaultPagerConfig
+      pager = taffyPagerNew myPagerConfig
       note = notifyAreaNew defaultNotificationConfig
       mpris = mprisNew defaultMPRISConfig
       mem = pollingGraphNew memCfg 1 memCallback
