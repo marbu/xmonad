@@ -9,6 +9,7 @@ import System.Taffybar.TaffyPager
 import System.Taffybar.SimpleClock
 import System.Taffybar.FreedesktopNotifications
 import System.Taffybar.MPRIS
+import System.Taffybar.Battery
 
 import System.Taffybar.Widgets.PollingBar
 import System.Taffybar.Widgets.PollingGraph
@@ -67,8 +68,9 @@ main = do
       mem = pollingGraphNew memCfg 1 memCallback
       cpu = pollingGraphNew cpuCfg 1 cpuCallback
       tray = systrayNew
+      battery = batteryBarNew defaultBatteryConfig 10
   -- start taffybar (similar to xmonad)
   defaultTaffybar defaultTaffybarConfig
     { startWidgets = [ pager, note ]
-    , endWidgets   = [ tray, clock, mem, cpu, mpris ]
+    , endWidgets   = [ tray, clock, battery, mem, cpu, mpris ]
     }
