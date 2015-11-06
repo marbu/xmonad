@@ -1,3 +1,7 @@
+--
+-- ~/.config/taffybar/taffybar.hs
+--
+
 import System.Taffybar
 
 import System.Taffybar.Systray
@@ -12,35 +16,59 @@ import System.Taffybar.Widgets.PollingGraph
 import System.Information.Memory
 import System.Information.CPU
 
-memCallback = do
-  mi <- parseMeminfo
-  return [memoryUsedRatio mi]
-
-cpuCallback = do
-  (userLoad, systemLoad, totalLoad) <- cpuLoad
-  return [totalLoad, systemLoad]
+--
+-- pager
+--
 
 myPagerConfig :: PagerConfig
 myPagerConfig = defaultPagerConfig
   { emptyWorkspace = (\xs -> "")
   }
 
+--
+-- monitoring/graphs
+--
+
+memCallback :: IO [Double]
+memCallback = do
+  mi <- parseMeminfo
+  return [memoryUsedRatio mi]
+
+memCfg :: GraphConfig
+memCfg = defaultGraphConfig
+  { graphDataColors = [(1, 0, 0, 1)]
+  , graphLabel = Just "mem"
+  }
+
+cpuCallback :: IO [Double]
+cpuCallback = do
+  (userLoad, systemLoad, totalLoad) <- cpuLoad
+  return [totalLoad, systemLoad]
+
+cpuCfg :: GraphConfig
+cpuCfg = defaultGraphConfig
+  { graphDataColors = [ (0, 1, 0, 1)
+                      , (1, 0, 1, 0.5)
+                      ]
+  , graphLabel = Just "cpu"
+  }
+
+--
+-- main function
+--
+
+main :: IO ()
 main = do
-  let memCfg = defaultGraphConfig { graphDataColors = [(1, 0, 0, 1)]
-                                  , graphLabel = Just "mem"
-                                  }
-      cpuCfg = defaultGraphConfig { graphDataColors = [ (0, 1, 0, 1)
-                                                      , (1, 0, 1, 0.5)
-                                                      ]
-                                  , graphLabel = Just "cpu"
-                                  }
+  -- define widgets
   let clock = textClockNew Nothing "<span fgcolor='orange'>%a %b %_d %H:%M</span>" 1
       pager = taffyPagerNew myPagerConfig
       note = notifyAreaNew defaultNotificationConfig
       mpris = mprisNew defaultMPRISConfig
       mem = pollingGraphNew memCfg 1 memCallback
-      cpu = pollingGraphNew cpuCfg 0.5 cpuCallback
+      cpu = pollingGraphNew cpuCfg 1 cpuCallback
       tray = systrayNew
-  defaultTaffybar defaultTaffybarConfig { startWidgets = [ pager, note ]
-                                        , endWidgets = [ tray, clock, mem, cpu, mpris ]
-                                        }
+  -- start taffybar (similar to xmonad)
+  defaultTaffybar defaultTaffybarConfig
+    { startWidgets = [ pager, note ]
+    , endWidgets   = [ tray, clock, mem, cpu, mpris ]
+    }
