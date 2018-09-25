@@ -51,6 +51,7 @@ myKeys = [
  , ((myModMask, xK_z), sendMessage MirrorExpand) -- for  ResizableTall
  , ((myModMask, xK_w), viewScreen 0)
  , ((myModMask, xK_e), viewScreen 1)
+ , ((myModMask, xK_r), viewScreen 2)
  , ((myModMask, xK_o), scratchPad)
  --((myModMask, xK_d), spawn "/home/martin/bin/qstardict-show-hide.sh")
  ]
