@@ -89,7 +89,7 @@ myManageHook = manageDocks <+> manageScratchPad <+> coreManageHook
 coreManageHook :: ManageHook
 coreManageHook = composeAll . concat $
   [ [ className   =? c --> doFloat           | c <- myFloats]
-  , [ className   =? c --> doF (W.shift "9") | c <- mailApps]
+  , [ className   =? c --> doF (W.shift "9") | c <- mailIrcApps]
   ]
   where
     myFloats      = [
@@ -100,7 +100,10 @@ coreManageHook = composeAll . concat $
      , "Klipper"
      , "Keepassx"
      ]
-    mailApps      = ["Thunderbird"]
+    mailIrcApps   = [
+       "Thunderbird"
+     , "konversation"
+     ]
 
 -- yakuake style hook
 manageScratchPad :: ManageHook
