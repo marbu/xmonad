@@ -23,6 +23,8 @@ import XMonad.Layout.Tabbed
 import XMonad.Layout.ResizableTile
 
 import XMonad.Actions.PhysicalScreens
+import XMonad.Actions.CycleWS
+import qualified XMonad.Actions.DynamicWorkspaceOrder as DO
 
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.DynamicLog
@@ -52,6 +54,10 @@ myKeys = [
  , ((myModMask, xK_w), viewScreen 0)
  , ((myModMask, xK_e), viewScreen 1)
  , ((myModMask, xK_r), viewScreen 2)
+ , ((myModMask .|. mod5Mask, xK_h),  DO.moveTo Prev HiddenNonEmptyWS)
+ , ((myModMask, xK_Left),            DO.moveTo Prev HiddenNonEmptyWS)
+ , ((myModMask .|. mod5Mask, xK_l),  DO.moveTo Next HiddenNonEmptyWS)
+ , ((myModMask, xK_Right),           DO.moveTo Next HiddenNonEmptyWS)
  , ((myModMask, xK_o), scratchPad)
  --((myModMask, xK_d), spawn "/home/martin/bin/qstardict-show-hide.sh")
  ]
