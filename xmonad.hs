@@ -33,6 +33,7 @@ import XMonad.Hooks.SetWMName
 import XMonad.Util.EZConfig
 import XMonad.Util.Scratchpad
 import XMonad.Util.Run (spawnPipe)
+import XMonad.Util.WorkspaceCompare
 
 import qualified XMonad.StackSet as W
 
@@ -54,15 +55,18 @@ myKeys = [
  , ((myModMask, xK_w), viewScreen 0)
  , ((myModMask, xK_e), viewScreen 1)
  , ((myModMask, xK_r), viewScreen 2)
- , ((myModMask .|. mod5Mask, xK_h),  DO.moveTo Prev HiddenNonEmptyWS)
- , ((myModMask, xK_Left),            DO.moveTo Prev HiddenNonEmptyWS)
- , ((myModMask .|. mod5Mask, xK_l),  DO.moveTo Next HiddenNonEmptyWS)
- , ((myModMask, xK_Right),           DO.moveTo Next HiddenNonEmptyWS)
+ , ((myModMask .|. mod5Mask, xK_h), prevHiddenNonEmptyNoSPWS)
+ , ((myModMask, xK_Left),           prevHiddenNonEmptyNoSPWS)
+ , ((myModMask .|. mod5Mask, xK_l), nextHiddenNonEmptyNoSPWS)
+ , ((myModMask, xK_Right),          nextHiddenNonEmptyNoSPWS)
  , ((myModMask, xK_o), scratchPad)
  --((myModMask, xK_d), spawn "/home/martin/bin/qstardict-show-hide.sh")
  ]
  where
    scratchPad = scratchpadSpawnActionTerminal myTerminal
+   getSortByIndexNoSP = fmap (.scratchpadFilterOutWorkspace) getSortByIndex
+   prevHiddenNonEmptyNoSPWS = windows . W.greedyView =<< findWorkspace getSortByIndexNoSP Prev HiddenNonEmptyWS 1
+   nextHiddenNonEmptyNoSPWS = windows . W.greedyView =<< findWorkspace getSortByIndexNoSP Next HiddenNonEmptyWS 1
 
 -- key bindings used only in stand alone mode (without KDE)
 myStandAloneKeys = [
