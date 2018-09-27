@@ -14,6 +14,10 @@ Moreover this configuration is based on the following examples:
  * [John Goerzen's Configuration](http://www.haskell.org/haskellwiki/Xmonad/Config_archive/John_Goerzen's_Configuration)
  * Fedora default configuraton (package `xmonad-config`, see [xmonad builds](http://koji.fedoraproject.org/koji/packageinfo?packageID=8370))
  * yakuake-like [Xmonad Scratchpad](http://pbrisbin.com/posts/xmonad_scratchpad/)
+ * [Cycling through workspaces in multi monitor setup in
+   XMonad](https://stackoverflow.com/questions/44355436)
+ * [General xmonad.hs config tips from haskell
+   wiki](https://wiki.haskell.org/Xmonad/General_xmonad.hs_config_tips)
 
 ## Quick setup
 

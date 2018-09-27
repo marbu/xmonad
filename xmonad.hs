@@ -52,9 +52,11 @@ myTerminal    = "urxvt256c-ml" -- preferred terminal emulator
 myKeys = [
    ((myModMask, xK_a), sendMessage MirrorShrink) -- for  ResizableTall
  , ((myModMask, xK_z), sendMessage MirrorExpand) -- for  ResizableTall
+ -- selecting particular monitors
  , ((myModMask, xK_w), viewScreen 0)
  , ((myModMask, xK_e), viewScreen 1)
  , ((myModMask, xK_r), viewScreen 2)
+ -- cycling through workspaces in multi monitor setup, skipping scratchpad
  , ((myModMask .|. mod5Mask, xK_h), prevHiddenNonEmptyNoSPWS)
  , ((myModMask, xK_Left),           prevHiddenNonEmptyNoSPWS)
  , ((myModMask .|. mod5Mask, xK_l), nextHiddenNonEmptyNoSPWS)
