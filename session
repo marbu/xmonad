@@ -1,8 +1,7 @@
 #!/bin/bash
-
-#
-# example of ~/.xprofile file for xmonad session
-#
+# xmonad session script
+# This file is executed during xmonad startup by /usr/bin/xmonad-start script
+# as packaged by Fedora (similar to how ~/.xprofile used to work).
 
 # set wallpaper
 wallpaper=~/data/wallpapers/dark-fedora-wallpaper.jpg
