@@ -45,7 +45,7 @@ Compared to KDE 4, the only difference is the location of configuration files:
 
 ~~~
 $ mkdir -p ~/.config/plasma-workspace/env
-$ echo 'KDEWM=/usr/bin/xmonad' > ~/.config/plasma-workspace/env/set_window_manager.sh
+$ echo 'export KDEWM=/usr/bin/xmonad' > ~/.config/plasma-workspace/env/set_window_manager.sh
 ~~~
 
 Note: Plasma now uses meta key in some default keybindings (eg. meta-tab is
