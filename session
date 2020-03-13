@@ -4,7 +4,7 @@
 # as packaged by Fedora (similar to how ~/.xprofile used to work).
 
 # set wallpaper
-wallpaper=~/data/wallpapers/dark-fedora-wallpaper.jpg
+wallpaper=~/data/wallpapers/wallpaper.jpg
 xloadimage -onroot -fullscreen -background black -center "${wallpaper}"
 
 # set keyboard layout
