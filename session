@@ -11,10 +11,6 @@ else
   unset DEBUG
 fi
 
-# set wallpaper
-wallpaper=~/data/wallpapers/wallpaper.jpg
-$DEBUG xloadimage -onroot -fullscreen -background black -center "${wallpaper}"
-
 # set keyboard layout
 $DEBUG setxkbmap us -variant cz_sk_de
 
@@ -29,3 +25,12 @@ $DEBUG xrdb -merge ~/.Xresources
 
 # run screensaver
 $DEBUG xscreensaver -no-splash &
+
+# configure monitor via xrandr
+if [[ -f xrandr.sh ]]; then
+  source xrandr.sh
+fi
+
+# set wallpaper
+wallpaper=~/data/wallpapers/wallpaper.jpg
+$DEBUG xloadimage -onroot -fullscreen -background black -center "${wallpaper}"
