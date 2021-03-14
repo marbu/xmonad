@@ -73,8 +73,8 @@ myKeys = [
 -- key bindings used only in stand alone mode (without KDE)
 myStandAloneKeys = [
    ((myModMask, xK_x),             spawn "xscreensaver-command -lock")
- , ((0, xF86XK_MonBrightnessUp),   spawn "xbacklight -inc 10")
- , ((0, xF86XK_MonBrightnessDown), spawn "xbacklight -dec 10")
+ , ((0, xF86XK_MonBrightnessUp),   spawn "brightnessctl set +5%")
+ , ((0, xF86XK_MonBrightnessDown), spawn "brightnessctl set 5%-")
  , ((0, xF86XK_AudioRaiseVolume),  spawn "amixer -D pulse sset Master 10%+")
  , ((0, xF86XK_AudioLowerVolume),  spawn "amixer -D pulse sset Master 10%-")
  , ((0, xF86XK_AudioMute),         spawn "amixer -D pulse sset Master toggle")
