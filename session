@@ -3,21 +3,29 @@
 # This file is executed during xmonad startup by /usr/bin/xmonad-start script
 # as packaged by Fedora (similar to how ~/.xprofile used to work).
 
+# debug mode
+if [[ $1 = "-d" ]]; then
+  DEBUG=echo
+  shift
+else
+  unset DEBUG
+fi
+
 # set wallpaper
 wallpaper=~/data/wallpapers/wallpaper.jpg
-xloadimage -onroot -fullscreen -background black -center "${wallpaper}"
+$DEBUG xloadimage -onroot -fullscreen -background black -center "${wallpaper}"
 
 # set keyboard layout
-setxkbmap us -variant cz_sk_de
+$DEBUG setxkbmap us -variant cz_sk_de
 
 # force reload of custom X configuration
-xrdb -merge ~/.Xresources
+$DEBUG xrdb -merge ~/.Xresources
 
 # make ctr-atl-backspace work again
-# setxkbmap -option terminate:ctrl_alt_bksp
+# $DEBUG setxkbmap -option terminate:ctrl_alt_bksp
 
 # remap some keys
-# xmodmap ~/.xmodmaprc
+# $DEBUG xmodmap ~/.xmodmaprc
 
 # run screensaver
-xscreensaver -no-splash &
+$DEBUG xscreensaver -no-splash &
