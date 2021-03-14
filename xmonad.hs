@@ -99,6 +99,7 @@ coreManageHook = composeAll . concat $
      , "Gimp"
      , "Plasma-desktop"
      , "plasmashell"
+     , "krunner"
      , "Klipper"
      , "Keepassx"
      ]
