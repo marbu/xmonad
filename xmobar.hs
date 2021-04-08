@@ -17,8 +17,16 @@ Config { font = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
                                    "--normal" , "#7aa6da" ,
                                    "--low" , "#d54e53" ,
                                    "-t" , "<left>"] 100
+                    , Run DynNetwork  [ "--template" , "<dev> tx: <tx> rx: <rx>"
+                                      , "--Low"      , "1000"     -- B/s
+                                      , "--High"     , "1000000"  -- B/s
+                                      , "--low"      , "green"
+                                      , "--normal"   , "orange"
+                                      , "--high"     , "red"
+                                      , "-S"         , "True"  -- show units
+                                      ] 10
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% }{ %cpu% | %memory% | %battery% | <fc=#ee9a00>%date%</fc>"
+       , template = "%StdinReader% }{ %dynnetwork% | %cpu% | %memory% | %battery% | <fc=#ee9a00>%date%</fc>"
        }
