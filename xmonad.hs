@@ -75,10 +75,10 @@ myStandAloneKeys = [
    ((myModMask, xK_x),             spawn "xscreensaver-command -lock")
  , ((0, xF86XK_MonBrightnessUp),   spawn "brightnessctl set +5%")
  , ((0, xF86XK_MonBrightnessDown), spawn "brightnessctl set 5%-")
- , ((0, xF86XK_AudioRaiseVolume),  spawn "amixer -D pulse sset Master 10%+")
- , ((0, xF86XK_AudioLowerVolume),  spawn "amixer -D pulse sset Master 10%-")
- , ((0, xF86XK_AudioMute),         spawn "amixer -D pulse sset Master toggle")
- , ((0, xF86XK_AudioMicMute),      spawn "amixer -D pulse sset Capture toggle")
+ , ((0, xF86XK_AudioRaiseVolume),  spawn "amixer -D pipewire sset Master 10%+")
+ , ((0, xF86XK_AudioLowerVolume),  spawn "amixer -D pipewire sset Master 10%-")
+ , ((0, xF86XK_AudioMute),         spawn "amixer -D pipewire sset Master toggle")
+ , ((0, xF86XK_AudioMicMute),      spawn "amixer -D pipewire sset Capture toggle")
  ]
 
 --
