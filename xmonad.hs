@@ -128,7 +128,7 @@ myStartupHook = setWMName "LG3D"
 
 myLayoutHook = smartBorders $ avoidStruts $ coreLayoutHook
 
-coreLayoutHook = tiled ||| Mirror tiled ||| tiled3 ||| Full ||| Grid
+coreLayoutHook = tiled ||| Mirror tiled ||| Full ||| tiled3 ||| Grid
   where
     -- default tiling algorithm partitions the screen into two panes
     tiled   = ResizableTall nmaster delta ratio []
