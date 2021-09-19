@@ -15,7 +15,6 @@ import XMonad.Config.Gnome
 import XMonad.Config.Kde
 import XMonad.Config.Xfce
 
-import XMonad.Layout.CenteredMaster
 import XMonad.Layout.Grid
 import XMonad.Layout.NoBorders
 import XMonad.Layout.ResizableTile
@@ -129,7 +128,7 @@ myStartupHook = setWMName "LG3D"
 
 myLayoutHook = smartBorders $ avoidStruts $ coreLayoutHook
 
-coreLayoutHook = tiled ||| Mirror tiled ||| tiled3 ||| Full ||| Grid ||| centerMaster Grid
+coreLayoutHook = tiled ||| Mirror tiled ||| tiled3 ||| Full ||| Grid
   where
     -- default tiling algorithm partitions the screen into two panes
     tiled   = ResizableTall nmaster delta ratio []
