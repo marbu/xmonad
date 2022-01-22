@@ -1,7 +1,7 @@
 # My Xmonad configuration
 
-This is rather simple [Xmonad](http://www.haskell.org/haskellwiki/Xmonad)
-configuration with KDE integration which would also work standalone.
+This is rather simple [Xmonad](https://xmonad.org/) configuration with
+[KDE](https://kde.org/) integration which would also work standalone.
 
 ## Inspiration
 
