@@ -104,8 +104,9 @@ coreManageHook = composeAll . concat $
      , "Starplot"
      ]
     mailIrcApps   = [
-       "Thunderbird"
+       "thunderbird"
      , "konversation"
+     , "Mail"
      ]
 
 -- yakuake style hook
