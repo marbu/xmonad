@@ -65,8 +65,8 @@ myKeys = [
  where
    scratchPad = scratchpadSpawnActionTerminal myTerminal
    getSortByIndexNoSP = fmap (.scratchpadFilterOutWorkspace) getSortByIndex
-   prevHiddenNonEmptyNoSPWS = windows . W.greedyView =<< findWorkspace getSortByIndexNoSP Prev HiddenNonEmptyWS 1
-   nextHiddenNonEmptyNoSPWS = windows . W.greedyView =<< findWorkspace getSortByIndexNoSP Next HiddenNonEmptyWS 1
+   prevHiddenNonEmptyNoSPWS = windows . W.greedyView =<< findWorkspace getSortByIndexNoSP Prev (hiddenWS :&: Not emptyWS) 1
+   nextHiddenNonEmptyNoSPWS = windows . W.greedyView =<< findWorkspace getSortByIndexNoSP Next (hiddenWS :&: Not emptyWS) 1
 
 -- key bindings used only in stand alone mode (without KDE)
 myStandAloneKeys = [
