@@ -33,4 +33,4 @@ fi
 
 # set wallpaper
 wallpaper=~/data/wallpapers/wallpaper.jpg
-$DEBUG xloadimage -onroot -fullscreen -background black -center "${wallpaper}"
+$DEBUG feh --bg-scale "${wallpaper}"
