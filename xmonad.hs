@@ -27,6 +27,7 @@ import qualified XMonad.Actions.DynamicWorkspaceOrder as DO
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.SetWMName
+import XMonad.Hooks.WindowSwallowing
 
 import XMonad.Util.EZConfig
 import XMonad.Util.Scratchpad
@@ -153,6 +154,12 @@ myLogHook xmproc = dynamicLogWithPP xmobarPP
   }
 
 --
+-- handle event hooks
+--
+
+myHandleEventHook = swallowEventHook (className =? "Alacritty" <||> className =? "URxvt") (return True)
+
+--
 -- desktop :: DESKTOP_SESSION -> desktop_configuration
 --
 
@@ -178,6 +185,7 @@ main = do
         , startupHook = myStartupHook
         , layoutHook  = myLayoutHook
         , manageHook  = myManageHook <+> manageHook defDesktopConfig
+        , handleEventHook = myHandleEventHook
         } `additionalKeys` myKeys
   -- when running standalone (no KDE), try to spawn xmobar (if installed)
   xmobarInstalled <- doesFileExist "/usr/bin/xmobar"
