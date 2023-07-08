@@ -4,3 +4,4 @@ xmonad.o
 xmonad*
 taffybar*
 *.swp
+build-x86_64-linux
