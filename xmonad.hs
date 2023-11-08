@@ -29,7 +29,7 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.SetWMName
 
 import XMonad.Util.EZConfig
-import XMonad.Util.Scratchpad
+import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run (spawnPipe)
 import XMonad.Util.WorkspaceCompare
 
@@ -59,12 +59,12 @@ myKeys = [
  , ((myModMask, xK_Left),           prevHiddenNonEmptyNoSPWS)
  , ((myModMask .|. mod5Mask, xK_l), nextHiddenNonEmptyNoSPWS)
  , ((myModMask, xK_Right),          nextHiddenNonEmptyNoSPWS)
- , ((myModMask, xK_o), scratchPad)
+ , ((myModMask, xK_o), namedScratchpadAction scratchpads "pad")
+ , ((myModMask, xK_v), namedScratchpadAction scratchpads "vol")
  --((myModMask, xK_d), spawn "/home/martin/bin/qstardict-show-hide.sh")
  ]
  where
-   scratchPad = scratchpadSpawnActionTerminal myTerminal
-   getSortByIndexNoSP = fmap (.scratchpadFilterOutWorkspace) getSortByIndex
+   getSortByIndexNoSP = fmap (. filterOutWs [scratchpadWorkspaceTag]) getSortByIndex
    prevHiddenNonEmptyNoSPWS = windows . W.greedyView =<< findWorkspace getSortByIndexNoSP Prev (hiddenWS :&: Not emptyWS) 1
    nextHiddenNonEmptyNoSPWS = windows . W.greedyView =<< findWorkspace getSortByIndexNoSP Next (hiddenWS :&: Not emptyWS) 1
 
@@ -80,12 +80,27 @@ myStandAloneKeys = [
  ]
 
 --
+-- yakuake like named scratchpads
+--
+
+scratchpads :: [NamedScratchpad]
+scratchpads = [
+    NS "pad" (myTerminal ++ " -name pad -e bash -c '/usr/bin/tmuxp load pad -y'") (resource =? "pad") (customFloating $ (W.RationalRect l t w h))
+  , NS "vol" "pavucontrol" (className =? "Pavucontrol") (customFloating $ W.RationalRect (1/4) (1/4) (2/4) (2/4))
+  ]
+  where
+    h = 0.4     -- terminal height, 40%
+    w = 1       -- terminal width, 100%
+    t = 1 - h   -- distance from top edge, 90%
+    l = 1 - w   -- distance from left edge, 0%
+
+--
 -- hooks for newly created windows
 -- note: run 'xprop WM_CLASS' to get className
 --
 
 myManageHook :: ManageHook
-myManageHook = manageDocks <+> manageScratchPad <+> coreManageHook
+myManageHook = manageDocks <+> (namedScratchpadManageHook scratchpads) <+> coreManageHook
 
 coreManageHook :: ManageHook
 coreManageHook = composeAll . concat $
@@ -110,15 +125,6 @@ coreManageHook = composeAll . concat $
      , "konversation"
      , "Mail"
      ]
-
--- yakuake style hook
-manageScratchPad :: ManageHook
-manageScratchPad = scratchpadManageHook (W.RationalRect l t w h)
-  where
-    h = 0.4     -- terminal height, 40%
-    w = 1       -- terminal width, 100%
-    t = 1 - h   -- distance from top edge, 90%
-    l = 1 - w   -- distance from left edge, 0%
 
 --
 -- startup hooks
