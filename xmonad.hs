@@ -102,6 +102,8 @@ coreManageHook = composeAll . concat $
      , "Klipper"
      , "Keepassx"
      , "Starplot"
+     , "spectacle"
+     , "virt-manager"
      ]
     mailIrcApps   = [
        "thunderbird"
