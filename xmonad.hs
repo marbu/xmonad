@@ -62,6 +62,7 @@ myKeys = [
  , ((myModMask, xK_Right),          nextHiddenNonEmptyNoSPWS)
  , ((myModMask, xK_o), namedScratchpadAction scratchpads "pad")
  , ((myModMask, xK_v), namedScratchpadAction scratchpads "vol")
+ , ((myModMask, xK_d), namedScratchpadAction scratchpads "timelog")
  , ((myModMask, xK_s),              unGrab >> spawn "flameshot-gui-hack")
  , ((0,         xK_Print),          unGrab >> spawn "flameshot-gui-hack")
  --((myModMask, xK_d), spawn "/home/martin/bin/qstardict-show-hide.sh")
@@ -90,6 +91,7 @@ scratchpads :: [NamedScratchpad]
 scratchpads = [
     NS "pad" (myTerminal ++ " -name pad -e bash -c '/usr/bin/tmuxp load pad -y'") (resource =? "pad") (customFloating $ (W.RationalRect l t w h))
   , NS "vol" "pavucontrol" (className =? "Pavucontrol") (customFloating $ W.RationalRect (1/4) (1/4) (2/4) (2/4))
+  , NS "timelog" "gtimelog" (className =? "Gtimelog") (customFloating $ W.RationalRect 0.375 0 (1/4) 0.4)
   ]
   where
     h = 0.4     -- terminal height, 40%
