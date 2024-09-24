@@ -64,7 +64,7 @@ myKeys = [
  , ((myModMask, xK_v), namedScratchpadAction scratchpads "vol")
  , ((myModMask, xK_d), namedScratchpadAction scratchpads "timelog")
  , ((myModMask, xK_e), namedScratchpadAction scratchpads "padedit")
- , ((myModMask, xK_s),              unGrab >> spawn "flameshot-gui-hack")
+ , ((myModMask, xK_s),              spawn "/usr/bin/mpc toggle")
  , ((0,         xK_Print),          unGrab >> spawn "flameshot-gui-hack")
  --((myModMask, xK_d), spawn "/home/martin/bin/qstardict-show-hide.sh")
  ]
