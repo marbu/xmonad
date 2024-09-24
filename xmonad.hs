@@ -110,6 +110,7 @@ myManageHook = manageDocks <+> (namedScratchpadManageHook scratchpads) <+> coreM
 coreManageHook :: ManageHook
 coreManageHook = composeAll . concat $
   [ [ className   =? c --> doFloat           | c <- myFloats]
+  , [ appName     =? c --> doFloat           | c <- myFloatApps]
   , [ className   =? c --> doF (W.shift "9") | c <- mailIrcApps]
   ]
   where
@@ -124,6 +125,9 @@ coreManageHook = composeAll . concat $
      , "Starplot"
      , "spectacle"
      , "virt-manager"
+     ]
+    myFloatApps   = [
+       "Alert"
      ]
     mailIrcApps   = [
        "thunderbird"
