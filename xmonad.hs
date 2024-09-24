@@ -31,6 +31,7 @@ import XMonad.Hooks.SetWMName
 import XMonad.Util.EZConfig
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run (spawnPipe)
+import XMonad.Util.Ungrab
 import XMonad.Util.WorkspaceCompare
 
 import qualified XMonad.StackSet as W
@@ -61,6 +62,8 @@ myKeys = [
  , ((myModMask, xK_Right),          nextHiddenNonEmptyNoSPWS)
  , ((myModMask, xK_o), namedScratchpadAction scratchpads "pad")
  , ((myModMask, xK_v), namedScratchpadAction scratchpads "vol")
+ , ((myModMask, xK_s),              unGrab >> spawn "flameshot-gui-hack")
+ , ((0,         xK_Print),          unGrab >> spawn "flameshot-gui-hack")
  --((myModMask, xK_d), spawn "/home/martin/bin/qstardict-show-hide.sh")
  ]
  where
