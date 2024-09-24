@@ -90,7 +90,7 @@ myStandAloneKeys = [
 scratchpads :: [NamedScratchpad]
 scratchpads = [
     NS "pad" (myTerminal ++ " -name pad -e bash -c '/usr/bin/tmuxp load pad -y'") (resource =? "pad") (customFloating $ (W.RationalRect l t w h))
-  , NS "vol" "pavucontrol" (className =? "Pavucontrol") (customFloating $ W.RationalRect (1/4) (1/4) (2/4) (2/4))
+  , NS "vol" "pavucontrol" (className =? "pavucontrol") (customFloating $ W.RationalRect (1/4) (1/4) (2/4) (2/4))
   , NS "timelog" "gtimelog" (className =? "Gtimelog") (customFloating $ W.RationalRect 0.375 0 (1/4) 0.4)
   ]
   where
