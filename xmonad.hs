@@ -132,7 +132,7 @@ coreManageHook = composeAll . concat $
        "Alert"
      ]
     mailIrcApps   = [
-       "thunderbird"
+       "org.mozilla.thunderbird"
      , "konversation"
      , "Mail"
      ]
