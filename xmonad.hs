@@ -31,7 +31,7 @@ import XMonad.Hooks.SetWMName
 import XMonad.Util.EZConfig
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run (spawnPipe)
-import XMonad.Util.Ungrab
+import XMonad.Operations (unGrab)
 import XMonad.Util.WorkspaceCompare
 
 import qualified XMonad.StackSet as W
