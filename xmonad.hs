@@ -42,7 +42,7 @@ import qualified XMonad.StackSet as W
 
 myModMask     = mod4Mask -- use the Windows key as mod
 myBorderWidth = 2        -- set window border size
-myTerminal    = "urxvt256c-ml" -- preferred terminal emulator
+myTerminal    = "alacritty" -- preferred terminal emulator
 
 --
 -- key bindings
@@ -90,7 +90,7 @@ myStandAloneKeys = [
 
 scratchpads :: [NamedScratchpad]
 scratchpads = [
-    NS "pad" (myTerminal ++ " -name pad -e bash -c '/usr/bin/tmuxp load pad -y'") (resource =? "pad") (customFloating $ (W.RationalRect l t w h))
+    NS "pad" (myTerminal ++ " --class pad -e bash -c '/usr/bin/tmuxp load pad -y'") (className =? "pad") (customFloating $ (W.RationalRect l t w h))
   , NS "vol" "pavucontrol" (className =? "pavucontrol") (customFloating $ W.RationalRect (1/4) (1/4) (2/4) (2/4))
   , NS "timelog" "gtimelog" (className =? "Gtimelog") (customFloating $ W.RationalRect 0.375 0 (1/4) 0.4)
   , NS "padedit" "kwrite ~/tmp/pad" (className =? "kwrite") (customFloating $ W.RationalRect (1/4) (1/4) (2/4) (2/4))
